@@ -9,45 +9,45 @@
                     </div>
                     <div class="mt-4 size-14 fw-medium">
                         <i class="fa fa-map-marker me-2"></i>
-                        Jl. Abdul Muis No.42, RT.2/RW.3, Petojo Sel., Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10160
+                        {{ datas.address }}
                     </div>
                     <div class="mt-4">
-                        <a class="btn btn-primary btn-sm px-4">
+                        <a :href="datas.map_link" target="_blank" class="btn btn-primary btn-sm px-4">
                             <i class="fa fa-map-marker me-2"></i>
                             Open In Map
                         </a>
                     </div>
                 </div>
-                <div class="col-md-4 z-index-9">
+                <div class="col-md-4 z-index-9 m-mt-3">
                     <div class="fw-ekstra-bold size-20">
                         Hubungi Kami
                     </div>
                     <div class="mt-4">
                         <div class="size-14 fw-medium">
                             <i class="fa fa-phone me-2"></i>
-                            (021) 12345 - 6789 - 0000
+                            {{ datas.phone_number }}
                         </div>
                     </div>
                     <div class="mt-2">
                         <div class="size-14 fw-medium">
-                            <i class="fa fa-phone me-2"></i>
-                            (021) 12345 - 6789 - 0000
+                            <i class="fa fa-whatsapp me-2"></i>
+                            {{ datas.mobile_number }}
                         </div>
                     </div>
                     <div class="mt-2">
                         <div class="size-14 fw-medium">
                             <i class="fa fa-envelope me-2"></i>
-                            danatek.inderaindonesia@dii-groups.com
+                            {{ datas.email }}
                         </div>
                     </div>
                     <div class="mt-3">
-                        <a href="" class="me-3 text-dark">
+                        <a :href="datas.facebook" target="_blank" class="me-3 text-dark" v-if="datas.facebook">
                             <i class="fa fa-facebook"></i>
                         </a>
-                        <a href="" class="me-3 text-dark">
+                        <a :href="datas.instagram" target="_blank" class="me-3 text-dark" v-if="datas.instagram">
                             <i class="fa fa-instagram"></i>
                         </a>
-                        <a href="" class="me-3 text-dark">
+                        <a :href="datas.twitter" target="_blank" class="me-3 text-dark" v-if="datas.twitter">
                             <i class="fa fa-twitter"></i>
                         </a>
                     </div>
@@ -58,13 +58,29 @@
 </template>
 
 <script>
+    import Api from '../api/Api';
+    
     export default {
         name: 'Footer',
         data() {
             return {
+                datas: {}
             }
         },
+        created(){
+            this.getDatas()
+        },
         methods: {
+            getDatas(){
+                Api.get(`/company`)
+                .then((res)=>{
+                    var data = res.data.data
+                    this.datas = data
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+            },
         }
     }
 </script>

@@ -1,5 +1,6 @@
 <template>
     <div class="container mt-hero login-height">
+        <notifications group="foo" position="top right" />
         <div class="row justify-content-center mt-login">
             <div class="col-md-5">
                 <h3 class="fw-bold text-center">
@@ -10,17 +11,38 @@
                 </div>
                 <div class="box mt-4">
                     <div class="">
-                        <label class="mb-2 fw-bold">Username</label>
-                        <input type="text" class="form-control" placeholder="Masukkan username">
+                        <label class="mb-2 fw-bold">Email</label>
+                        <input
+                            type="email"
+                            class="form-control"
+                            placeholder="Masukkan email"
+                            v-model="email"
+                        >
                     </div>
                     <div class="mt-3">
                         <label class="mb-2 fw-bold">Password</label>
-                        <input type="password" class="form-control" placeholder="Masukkan password">
+                        <input 
+                            type="password"
+                            class="form-control"
+                            placeholder="Masukkan password"
+                            v-model="password"
+                        >
                     </div>
                     <div class="mt-4">
-                        <a href="" class="btn btn-primary w-100">
+                        <button 
+                            class="btn btn-primary w-100"
+                            @click="login()"
+                        >
                             Login
-                        </a>
+                        </button>
+                        <div class="mt-3">
+                            <a
+                                href="/register"
+                                class="btn btn-outline-primary w-100"
+                            >
+                                Register
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -28,7 +50,70 @@
     </div>
 </template>
 
-<style>
+<script>
+    import Api from '../api/Api';
+
+    export default {
+        props: '',
+        name: 'Login',
+        data() {
+            return{
+                email: '',
+                password: '',
+            }
+        },
+        created() {
+        },
+        methods: {
+            login(){
+                if(this.email == ""){
+                    this.$notify({
+                        group: 'foo',
+                        type: 'error',
+                        title: 'Error',
+                        text: 'Email is required'
+                    });
+                }else if(this.password == ""){
+                    this.$notify({
+                        group: 'foo',
+                        type: 'error',
+                        title: 'Error',
+                        text: 'Password is required'
+                    });
+                }
+                else{
+                    var data = {
+                        email: this.email,
+                        password: this.password,
+                    }
+                    Api.post(`/login`, data)
+                    .then((res)=>{
+                        console.log(res)
+                        this.$notify({
+                            group: 'foo',
+                            type: 'success',
+                            title: 'Success',
+                            text: 'Login success'
+                        });
+                        setTimeout(() => (window.location.href = "/admin"), 1500);
+                        localStorage.setItem('token', res.data.data.remember_token)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        this.$notify({
+                            group: 'foo',
+                            type: 'error',
+                            title: 'Error',
+                            text: 'Email atau password anda salah'
+                        });
+                    });
+                }
+            },
+        }
+    }
+</script>
+
+<style scoped>
     .form-control {
         display: block;
         width: 100%;

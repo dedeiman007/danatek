@@ -3,6 +3,9 @@
 </template>
 
 <script scoped>
+  import './assets/js/summernote-lite.js'
+  import './assets/css/summernote-lite.css'
+  
     const layout = 'default';
 
     export default {

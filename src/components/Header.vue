@@ -6,21 +6,21 @@
                     <div class="size-13 flex-grow-1 bd-highlight">
                         <span class="me-3">
                             <i class="fa fa-phone me-2"></i>
-                            0897 878 8787
+                            {{ datas.phone_number }}
                         </span>
                         <span>
                             <i class="fa fa-envelope me-2"></i>
-                            danatek.inderaindonesia@dii-groups.com
+                            {{ datas.email }}
                         </span>
                     </div>
                     <div class="bd-highlight size-13">
-                        <a href="" class="me-3 text-dark">
+                        <a :href="datas.facebook" target="_blank" class="me-3 text-dark" v-if="datas.facebook">
                             <i class="fa fa-facebook"></i>
                         </a>
-                        <a href="" class="me-3 text-dark">
+                        <a :href="datas.instagram" target="_blank" class="me-3 text-dark" v-if="datas.instagram">
                             <i class="fa fa-instagram"></i>
                         </a>
-                        <a href="" class="me-3 text-dark">
+                        <a :href="datas.twitter" target="_blank" class="me-3 text-dark" v-if="datas.twitter">
                             <i class="fa fa-twitter"></i>
                         </a>
                     </div>
@@ -55,11 +55,11 @@
                                     Product
                                 </router-link>
                             </li>
-                            <li class="nav-item mx-2">
+                            <!-- <li class="nav-item mx-2">
                                 <router-link :to="{name: 'News'}" :class="{'nav-link': true, 'active': this.$route.name == 'News'}">
                                     News
                                 </router-link>
-                            </li>
+                            </li> -->
                             <li class="nav-item mx-2">
                                 <router-link :to="{name: 'Contacts'}" :class="{'nav-link': true, 'active': this.$route.name == 'Contacts'}">
                                     Contact
@@ -79,15 +79,31 @@
 </template>
 
 <script>
-export default {
-  name: 'Header',
-  data() {
-    return {
+    import Api from '../api/Api';
+
+    export default {
+        name: 'Header',
+        data() {
+            return {
+                datas: {}
+            }
+        },
+        created(){
+            this.getDatas()
+        },
+        methods: {
+            getDatas(){
+                Api.get(`/company`)
+                .then((res)=>{
+                    var data = res.data.data
+                    this.datas = data
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+            },
+        }
     }
-  },
-  methods: {
-  }
-}
 </script>
 
 <style scoped>

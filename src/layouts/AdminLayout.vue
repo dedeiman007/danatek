@@ -1,5 +1,6 @@
 <template>
     <div>
+        <notifications group="foo" position="top right" />
         <div class="page-wrapper chiller-theme toggled">
             <a id="show-sidebar" class="btn btn-sm btn-primary" href="#">
                 <i class="fa fa-angle-right"></i>
@@ -17,7 +18,7 @@
                             <center>
                                 <img class="radius" src="../assets/user.jpg" width="50">
                                 <div class="mt-3 fw-bold">
-                                    Muhammad Deims Skuy
+                                    Users
                                 </div>
                                 <div class="size-14">
                                     Admin Danatek
@@ -31,40 +32,58 @@
                                 <span>Danatek Page</span>
                             </li>
                             <li class="sidebar-dropdown">
-                                <a href="#" class="active">
+                                <router-link :to="{name: 'Admin'}" :class="{'': true, 'active': this.$route.name == 'Admin'}">
                                     <i class="fa fa-home"></i>
                                     <span>Dashboard</span>
-                                </a>
+                                </router-link>
                             </li>
                             <li class="sidebar-dropdown">
-                                <a href="#">
+                                <router-link :to="{name: 'admin-home'}" :class="{'': true, 'active': this.$route.name == 'admin-home'}">
                                     <i class="fa fa-wechat"></i>
-                                    <span>Sidebar</span>
-                                </a>
+                                    <span>Home</span>
+                                </router-link>
                             </li>
                             <li class="sidebar-dropdown">
-                                <a href="#">
-                                    <i class="fa fa-bar-chart"></i>
-                                    <span>Product</span>
-                                </a>
+                                <router-link :to="{name: 'admin-footer'}" :class="{'': true, 'active': this.$route.name == 'admin-footer'}">
+                                    <i class="fa fa-wechat"></i>
+                                    <span>Footer</span>
+                                </router-link>
                             </li>
                             <li class="sidebar-dropdown">
-                                <a href="#">
+                                <router-link :to="{name: 'admin-contact'}" :class="{'': true, 'active': this.$route.name == 'admin-contact'}">
+                                    <i class="fa fa-wechat"></i>
+                                    <span>Contact Us</span>
+                                </router-link>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <router-link :to="{name: 'admin-about'}" :class="{'': true, 'active': this.$route.name == 'admin-about'}">
+                                    <i class="fa fa-wechat"></i>
+                                    <span>About</span>
+                                </router-link>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <router-link :to="{name: 'admin-article'}" :class="{'': true, 'active': this.$route.name == 'admin-article'}">
                                     <i class="fa fa-money"></i>
-                                    <span>News</span>
-                                </a>
+                                    <span>Article List</span>
+                                </router-link>
                             </li>
                             <li class="sidebar-dropdown">
-                                <a href="#">
+                                <router-link :to="{name: 'admin-product-category'}" :class="{'': true, 'active': this.$route.name == 'admin-product-category'}">
                                     <i class="fa fa-money"></i>
-                                    <span>Article</span>
-                                </a>
+                                    <span>Product Category</span>
+                                </router-link>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <router-link :to="{name: 'admin-product'}" :class="{'': true, 'active': this.$route.name == 'admin-product'}">
+                                    <i class="fa fa-money"></i>
+                                    <span>Product List</span>
+                                </router-link>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="sidebar-footer">
-                    <a href="#">
+                    <a href="javascript:void()" @click="logout()">
                         <i class="fa fa-power-off me-1"></i>
                         Logout
                     </a>
@@ -82,9 +101,10 @@
 
 <script>
     import $ from 'jquery'
+    import Api from '../api/Api';
 
     export default {
-        name: 'Login',
+        name: 'admin-layout',
         data() {
             return{
             }
@@ -118,7 +138,43 @@
                 $(".page-wrapper").addClass("toggled");
             });
         },
-        methods: {}
+        methods: {
+            logout(){
+                Api.post(`/logout`, {
+                    Headers:{
+                        'token': `${localStorage.getItem('token')}`,
+                    }
+                })
+                .then((res)=>{
+                    console.log(res)
+                    this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Success',
+                        text: 'Logout success'
+                    });
+                    setTimeout(() => (window.location.href = "/login"), 1500);
+                })
+                .catch(err => {
+                    if(err.response.data.message == 'Session Expired! ') {
+                        this.$notify({
+                            group: 'foo',
+                            type: 'success',
+                            title: 'Success',
+                            text: 'Logout success'
+                        });
+                        setTimeout(() => (window.location.href = "/login"), 1500);
+                    }else{
+                        this.$notify({
+                            group: 'foo',
+                            type: 'error',
+                            title: 'Error',
+                            text: 'Logout gagal'
+                        });
+                    }
+                });
+            }
+        }
     }
 </script>
 

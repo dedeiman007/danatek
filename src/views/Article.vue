@@ -5,120 +5,35 @@
                 <h2 class="text-dark fw-ekstra-bold">
                     List Article 
                 </h2>
-                <div class="row">
-                    <div class="col-md-6 mt-4">
-                        <router-link :to="{name: 'ArticleDetail'}">
-                            <div class="box no-shadow border-gray">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img src="../assets/news-2.jpg" width="100%" class="small-radius-image" alt="">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="fw-ekstra-bold size-16 text-dark">
-                                            Keputusan IDI mengenai  pencegahan kajian virus Covid -19 varian terbaru
+                <div class="row" v-if="articles.length > 0">
+                    <template v-for="(article, index) in articles">
+                        <div class="col-md-6 mt-4" :key="index" v-if="article.status == 'Aktif'">
+                            <a :href="'/article/' + article.id">
+                                <div class="box no-shadow border-gray">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="image-article" :style="{'background-image': 'url(' + (article.image) + ')'}"></div>
                                         </div>
-                                        <div class="mt-2 text-gray fw-medium">
-                                            12 Juli 2022
+                                        <div class="col-md-8 m-mt-2">
+                                            <div class="fw-ekstra-bold size-16 text-dark">
+                                                {{ article.title }}
+                                            </div>
+                                            <div class="mt-2 text-gray fw-medium">
+                                                {{ moment(article.created_at).format('DD MMMM YYYY') }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </router-link>
+                            </a>
+                        </div>
+                    </template>
+                </div>
+                <div class="box no-shadow border-gray text-center p-4 mt-5" v-else>
+                    <div class="mt-4">
+                        <img src="../assets/empty.png" width="100" alt="">
                     </div>
-                    <div class="col-md-6 mt-4">
-                        <router-link :to="{name: 'ArticleDetail'}">
-                            <div class="box no-shadow border-gray">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img src="../assets/news-3.jpg" width="100%" class="small-radius-image" alt="">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="fw-ekstra-bold size-16 text-dark">
-                                            Keputusan IDI mengenai  pencegahan kajian virus Covid -19 varian terbaru
-                                        </div>
-                                        <div class="mt-2 text-gray fw-medium">
-                                            12 Juli 2022
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                    <div class="col-md-6 mt-4">
-                        <router-link :to="{name: 'ArticleDetail'}">
-                            <div class="box no-shadow border-gray">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img src="../assets/news-4.jpg" width="100%" class="small-radius-image" alt="">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="fw-ekstra-bold size-16 text-dark">
-                                            Keputusan IDI mengenai  pencegahan kajian virus
-                                        </div>
-                                        <div class="mt-2 text-gray fw-medium">
-                                            12 Juli 2022
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                    <div class="col-md-6 mt-4">
-                        <router-link :to="{name: 'ArticleDetail'}">
-                            <div class="box no-shadow border-gray">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img src="../assets/news-1.jpg" width="100%" class="small-radius-image" alt="">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="fw-ekstra-bold size-16 text-dark">
-                                            Keputusan IDI mengenai pencegahan kajian virus Covid -19 varian terbaru
-                                        </div>
-                                        <div class="mt-2 text-gray fw-medium">
-                                            12 Juli 2022
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                    <div class="col-md-6 mt-4">
-                        <router-link :to="{name: 'ArticleDetail'}">
-                            <div class="box no-shadow border-gray">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img src="../assets/news-4.jpg" width="100%" class="small-radius-image" alt="">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="fw-ekstra-bold size-16 text-dark">
-                                            Keputusan IDI mengenai  pencegahan kajian virus
-                                        </div>
-                                        <div class="mt-2 text-gray fw-medium">
-                                            12 Juli 2022
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
-                    </div>
-                    <div class="col-md-6 mt-4">
-                        <router-link :to="{name: 'ArticleDetail'}">
-                            <div class="box no-shadow border-gray">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <img src="../assets/news-1.jpg" width="100%" class="small-radius-image" alt="">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="fw-ekstra-bold size-16 text-dark">
-                                            Keputusan IDI mengenai pencegahan kajian virus Covid -19 varian terbaru
-                                        </div>
-                                        <div class="mt-2 text-gray fw-medium">
-                                            12 Juli 2022
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </router-link>
+                    <div class="size-18 fw-medium text-gray mt-4 mb-2">
+                        Article is empty
                     </div>
                 </div>
             </div>
@@ -127,17 +42,33 @@
 </template>
 
 <script>
-export default {
-    components: {
-    },
-    name: 'Home',
-    data() {
-        return{
+    import Api from '../api/Api';
+    import moment from 'moment';
+
+    export default {
+        components: {
+        },
+        name: 'Home',
+        data() {
+            return{
+                moment: moment,
+                articles: []
+            }
+        },
+        created() {
+            this.getArticles()
+        },
+        methods: {
+            getArticles(){
+                Api.get(`/article`)
+                .then((res)=>{
+                    var data = res.data.data
+                    this.articles = data
+                })
+                .catch(err => {
+                    console.log(err)
+                });
+            },
         }
-    },
-    created() {
-    },
-    methods: {
     }
-}
 </script>
