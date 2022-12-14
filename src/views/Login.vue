@@ -18,6 +18,11 @@
                             placeholder="Masukkan email"
                             v-model="email"
                         >
+                        <div>
+                            <small class="text-danger size-12" v-if="validation_errors['email']">
+                                {{ validation_errors.email[0] }}
+                            </small>
+                        </div>
                     </div>
                     <div class="mt-3">
                         <label class="mb-2 fw-bold">Password</label>
@@ -27,6 +32,11 @@
                             placeholder="Masukkan password"
                             v-model="password"
                         >
+                        <div>
+                            <small class="text-danger size-12" v-if="validation_errors['password']">
+                                {{ validation_errors.password[0] }}
+                            </small>
+                        </div>
                     </div>
                     <div class="mt-4">
                         <button 
@@ -60,54 +70,32 @@
             return{
                 email: '',
                 password: '',
+                validation_errors: [],
             }
         },
         created() {
         },
         methods: {
             login(){
-                if(this.email == ""){
+                var data = {
+                    email: this.email,
+                    password: this.password,
+                }
+                Api.post(`/login`, data)
+                .then((res)=>{
+                    console.log(res)
                     this.$notify({
                         group: 'foo',
-                        type: 'error',
-                        title: 'Error',
-                        text: 'Email is required'
+                        type: 'success',
+                        title: 'Success',
+                        text: 'Login success'
                     });
-                }else if(this.password == ""){
-                    this.$notify({
-                        group: 'foo',
-                        type: 'error',
-                        title: 'Error',
-                        text: 'Password is required'
-                    });
-                }
-                else{
-                    var data = {
-                        email: this.email,
-                        password: this.password,
-                    }
-                    Api.post(`/login`, data)
-                    .then((res)=>{
-                        console.log(res)
-                        this.$notify({
-                            group: 'foo',
-                            type: 'success',
-                            title: 'Success',
-                            text: 'Login success'
-                        });
-                        setTimeout(() => (window.location.href = "/admin"), 1500);
-                        localStorage.setItem('token', res.data.data.remember_token)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        this.$notify({
-                            group: 'foo',
-                            type: 'error',
-                            title: 'Error',
-                            text: 'Email atau password anda salah'
-                        });
-                    });
-                }
+                    setTimeout(() => (window.location.href = "/admin"), 1500);
+                    localStorage.setItem('token', res.data.data.remember_token)
+                })
+                .catch(err => {
+                    this.validation_errors = err.response.data.data
+                });
             },
         }
     }

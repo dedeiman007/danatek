@@ -127,7 +127,7 @@
                     setTimeout(() => (window.location.href = "/login"), 1500);
                 })
                 .catch(err => {
-                    this.validation_errors = err.response.data.message
+                    this.validation_errors = err.response.data.data
                 });
             },
         }
