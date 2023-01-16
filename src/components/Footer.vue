@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-md-4 z-index-9 m-mt-3">
                     <div class="fw-ekstra-bold size-20">
-                        Hubungi Kami
+                        Contact Us
                     </div>
                     <div class="mt-4">
                         <div class="size-14 fw-medium">

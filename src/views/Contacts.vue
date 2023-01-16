@@ -77,7 +77,7 @@
                                 Anda bisa menemukan kami melalui google maps
                             </div>
                             <div class="google-map-code">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d63460.41105203113!2d106.80338378584239!3d-6.227336573816511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x2e69f47c669a9375%3A0x6dc00a0edf4daff2!2sPt%20Danatek%20Indera%20Indonesia%2C%20Jl.%20Kh.%20Ahmad%20Dahlan%20No.4%2C%20RW.9%2C%20Palmeriam%2C%20Matraman%2C%20East%20Jakarta%20City%2C%20Jakarta%2013140!3m2!1d-6.20886!2d106.86034029999999!5e0!3m2!1sen!2sid!4v1668769316928!5m2!1sen!2sid"
+                                <iframe :src="datas.map_embed"
                                     width="100%"
                                     height="400"
                                     style="border:0;"

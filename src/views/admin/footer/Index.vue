@@ -4,7 +4,7 @@
         <div>
             <div class="px-3 line d-block d-lg-none"></div>
             <h4 class="fw-ekstra-bold mb-0">
-                Footer Edit Content
+                Footer and Contact Edit Content
             </h4>
             <p class="mt-2 text-gray500">
                 Tambah atau edit deskripsi website anda
@@ -35,15 +35,6 @@
                         <div>
                             <small class="text-danger size-12" v-if="validation_errors['email']">
                                 {{ validation_errors.email[0] }}
-                            </small>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <label class="mb-2 fw-medium">Map Link</label>
-                        <input type="text" class="form-control" placeholder="Enter map link" v-model="req.map_link">
-                        <div>
-                            <small class="text-danger size-12" v-if="validation_errors['map_link']">
-                                {{ validation_errors.map_link[0] }}
                             </small>
                         </div>
                     </div>
@@ -80,6 +71,24 @@
                         <div>
                             <small class="text-danger size-12" v-if="validation_errors['address']">
                                 {{ validation_errors.address[0] }}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <label class="mb-2 fw-medium">Map Link For Footer</label>
+                        <input type="text" class="form-control" placeholder="Enter map link" v-model="req.map_link">
+                        <div>
+                            <small class="text-danger size-12" v-if="validation_errors['map_link']">
+                                {{ validation_errors.map_link[0] }}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <label class="mb-2 fw-medium">Map Embed For Contact</label>
+                        <input type="text" class="form-control" placeholder="Enter map link" v-model="req.map_embed">
+                        <div>
+                            <small class="text-danger size-12" v-if="validation_errors['map_embed']">
+                                {{ validation_errors.map_embed[0] }}
                             </small>
                         </div>
                     </div>
@@ -125,7 +134,8 @@
                     email: '',
                     instagram: '',
                     facebook: '',
-                    twitter: ''
+                    twitter: '',
+                    map_embed: '',
                 },
                 validation_errors: [],
             }
@@ -150,6 +160,7 @@
                 var data = {
                     address: this.req.address,
                     map_link: this.req.map_link,
+                    map_embed: this.req.map_embed,
                     phone_number: this.req.phone_number,
                     mobile_number: this.req.mobile_number,
                     email: this.req.email,

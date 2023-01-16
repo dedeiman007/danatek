@@ -46,7 +46,7 @@
                             <li class="sidebar-dropdown">
                                 <router-link :to="{name: 'admin-footer'}" :class="{'': true, 'active': this.$route.name == 'admin-footer'}">
                                     <i class="fa fa-wechat"></i>
-                                    <span>Footer</span>
+                                    <span>Footer & Contact Us</span>
                                 </router-link>
                             </li>
                             <li class="sidebar-dropdown">
