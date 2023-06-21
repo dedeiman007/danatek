@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 mt-3">
-                        <label class="mb-2 fw-medium">Facebook</label>
+                        <label class="mb-2 fw-medium">Linked In</label>
                         <input type="text" class="form-control" placeholder="Enter facebook url" v-model="req.facebook">
                         <div>
                             <small class="text-danger size-12" v-if="validation_errors['facebook']">

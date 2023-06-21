@@ -38,7 +38,7 @@
                             <h3 class="box-visi-misi-title">
                                 Visi
                             </h3>
-                            <div class="mt-2 text-dark text-center">
+                            <div class="mt-2 text-dark">
                                 <div v-html="datas.vision"></div>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                             <h3 class="box-visi-misi-title">
                                 Misi
                             </h3>
-                            <div class="mt-2 text-dark text-center">
+                            <div class="mt-2 text-dark">
                                 <div v-html="datas.mission"></div>
                             </div>
                         </div>

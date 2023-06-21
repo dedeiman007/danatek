@@ -42,14 +42,14 @@
                     </div>
                     <div class="mt-3">
                         <a :href="datas.facebook" target="_blank" class="me-3 text-dark" v-if="datas.facebook">
-                            <i class="fa fa-facebook"></i>
+                            <i class="fa fa-linkedin"></i>
                         </a>
                         <a :href="datas.instagram" target="_blank" class="me-3 text-dark" v-if="datas.instagram">
                             <i class="fa fa-instagram"></i>
                         </a>
-                        <a :href="datas.twitter" target="_blank" class="me-3 text-dark" v-if="datas.twitter">
+                        <!-- <a :href="datas.twitter" target="_blank" class="me-3 text-dark" v-if="datas.twitter">
                             <i class="fa fa-twitter"></i>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>
